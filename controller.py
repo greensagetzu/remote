@@ -14,6 +14,13 @@ class Controller(QMainWindow, Ui_MainWindow):
 	
 
 	def __init__(self, *args, **kwargs):
+		"""
+		Constructor to create initial state of a controller project
+
+		:param name: person's name
+		
+		"""
+		""""""
 		super().__init__(*args, **kwargs)
 		self.setupUi(self)
 		
@@ -37,9 +44,6 @@ class Controller(QMainWindow, Ui_MainWindow):
 		self.pixmap_4 = QPixmap("origin.png")
 		self.pixmap_4 = self.pixmap_4.scaled(256, 256, QtCore.Qt.KeepAspectRatioByExpanding)
 
-
-
-
 		self.btn_power.clicked.connect(lambda: self.power())
 		self.btn_mute.clicked.connect(lambda: self.mute())
 		
@@ -50,98 +54,120 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
 	def power(self):
-		if self.__status == False:
-			self.__status = True
-			#self.label_image.setPixmap(self.pixmap_0)
-	
-			self.slider_volume.setValue(1)
+		try:
+			if self.__status == False:
+				self.__status = True
+				#self.label_image.setPixmap(self.pixmap_0)
+		
+				self.slider_volume.setValue(1)
 
-			if self.__channel == 0:
-				self.label_image.setPixmap(self.pixmap_0)
-			elif self.__channel == 1:
-				self.label_image.setPixmap(self.pixmap_1)
-			elif self.__channel == 2:
-				self.label_image.setPixmap(self.pixmap_2)
-			elif self.__channel == 3:
-				self.label_image.setPixmap(self.pixmap_3)
+				if self.__channel == 0:
+					self.label_image.setPixmap(self.pixmap_0)
+				elif self.__channel == 1:
+					self.label_image.setPixmap(self.pixmap_1)
+				elif self.__channel == 2:
+					self.label_image.setPixmap(self.pixmap_2)
+				elif self.__channel == 3:
+					self.label_image.setPixmap(self.pixmap_3)
 
-		else:
-			self.__status = False
-			self.label_image.setPixmap(self.pixmap_4)
-			self.slider_volume.setValue(0)
-			self.btn_mute.setStyleSheet("background-color: none")
+			else:
+				self.__status = False
+				self.label_image.setPixmap(self.pixmap_4)
+				self.slider_volume.setValue(0)
+				self.btn_mute.setStyleSheet("background-color: none")
+		except:
+			self.label_image.setText(f'Error: Power')
+
 
 	
 
 	def mute(self):
-		if self.__status == True:
-			if self.__muted == False: 
-				self.__muted = True
-				self.btn_mute.setStyleSheet("background-color: red")
-				self.slider_volume.setValue(0)
+		try:
+			if self.__status == True:
+				if self.__muted == False: 
+					self.__muted = True
+					self.btn_mute.setStyleSheet("background-color: red")
+					self.slider_volume.setValue(0)
 
-			else:
-				self.__muted = False
-				self.btn_mute.setStyleSheet("background-color: none")
-				self.slider_volume.setValue(self.__volume )
+				else:
+					self.__muted = False
+					self.btn_mute.setStyleSheet("background-color: none")
+					self.slider_volume.setValue(self.__volume )
+		except:
+			self.label_image.setText(f'Error: Mute')
+
 
 	def volume_up(self):
-		if self.__status == True:
-			if self.__volume != Controller.MAX_VOLUME:
-				self.__volume += 1
-				self.slider_volume.setValue(self.__volume)
-				self.btn_mute.setStyleSheet("background-color: none")
-			else:
-				self.__volume = Controller.MAX_VOLUME
-				self.slider_volume.setValue(self.__volume)
-				self.btn_mute.setStyleSheet("background-color: none")
+		try:
+			if self.__status == True:
+				if self.__volume != Controller.MAX_VOLUME:
+					self.__volume += 1
+					self.slider_volume.setValue(self.__volume)
+					self.btn_mute.setStyleSheet("background-color: none")
+				else:
+					self.__volume = Controller.MAX_VOLUME
+					self.slider_volume.setValue(self.__volume)
+					self.btn_mute.setStyleSheet("background-color: none")
+		except:
+			self.label_image.setText(f'Error: Volume Up')
+
 
 		
 	def volume_down(self):
-		if self.__status == True:
-			if self.__volume != Controller.MIN_VOLUME:
-				self.__volume -= 1
-				self.slider_volume.setValue(self.__volume)
-				self.btn_mute.setStyleSheet("background-color: none")
-			else:
-				self.__volume = Controller.MIN_VOLUME
-				self.btn_mute.setStyleSheet("background-color: red")
-				self.slider_volume.setValue(self.__volume)
+		try:
+			if self.__status == True:
+				if self.__volume != Controller.MIN_VOLUME:
+					self.__volume -= 1
+					self.slider_volume.setValue(self.__volume)
+					self.btn_mute.setStyleSheet("background-color: none")
+				else:
+					self.__volume = Controller.MIN_VOLUME
+					self.btn_mute.setStyleSheet("background-color: red")
+					self.slider_volume.setValue(self.__volume)
+		except:
+			self.label_image.setText(f'Error: Volume Down')
 
 
 	def channel_up(self):
-		if self.__status == True:
-			if self.__channel != Controller.MAX_CHANNEL:
-				self.__channel += 1
-				if self.__channel == 0:
+		try:
+			if self.__status == True:
+				if self.__channel != Controller.MAX_CHANNEL:
+					self.__channel += 1
+					if self.__channel == 0:
+						self.label_image.setPixmap(self.pixmap_0)
+					elif self.__channel == 1:
+						self.label_image.setPixmap(self.pixmap_1)
+					elif self.__channel == 2:
+						self.label_image.setPixmap(self.pixmap_2)
+					elif self.__channel == 3:
+						self.label_image.setPixmap(self.pixmap_3)
+					
+				else:
+					self.__channel = Controller.MIN_CHANNEL
 					self.label_image.setPixmap(self.pixmap_0)
-				elif self.__channel == 1:
-					self.label_image.setPixmap(self.pixmap_1)
-				elif self.__channel == 2:
-					self.label_image.setPixmap(self.pixmap_2)
-				elif self.__channel == 3:
-					self.label_image.setPixmap(self.pixmap_3)
-				
-			else:
-				self.__channel = Controller.MIN_CHANNEL
-				self.label_image.setPixmap(self.pixmap_0)
+		except:
+			self.label_image.setText(f'Error: Channel Up')
 
 
 	def channel_down(self):
-		if self.__status == True:
-			if self.__channel != Controller.MIN_CHANNEL:
-				self.__channel -= 1
-				if self.__channel == 0:
-					self.label_image.setPixmap(self.pixmap_0)
-				elif self.__channel == 1:
-					self.label_image.setPixmap(self.pixmap_1)
-				elif self.__channel == 2:
-					self.label_image.setPixmap(self.pixmap_2)
-				elif self.__channel == 3:
+		try:
+			if self.__status == True:
+				if self.__channel != Controller.MIN_CHANNEL:
+					self.__channel -= 1
+					if self.__channel == 0:
+						self.label_image.setPixmap(self.pixmap_0)
+					elif self.__channel == 1:
+						self.label_image.setPixmap(self.pixmap_1)
+					elif self.__channel == 2:
+						self.label_image.setPixmap(self.pixmap_2)
+					elif self.__channel == 3:
+						self.label_image.setPixmap(self.pixmap_3)
+				else:
+					self.__channel = Controller.MAX_CHANNEL
 					self.label_image.setPixmap(self.pixmap_3)
-			else:
-				self.__channel = Controller.MAX_CHANNEL
-				self.label_image.setPixmap(self.pixmap_3)
+		except:
+			self.label_image.setText(f'Error: Channel Down')
+
 			
 
 	
