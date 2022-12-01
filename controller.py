@@ -78,7 +78,8 @@ class Controller(QMainWindow, Ui_MainWindow):
 			if self.__muted == False: 
 				self.__muted = True
 				self.btn_mute.setStyleSheet("background-color: red")
-				self.slider_volume.setValue(self.__volume)
+				self.slider_volume.setValue(0)
+
 			else:
 				self.__muted = False
 				self.btn_mute.setStyleSheet("background-color: none")
@@ -86,24 +87,26 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 	def volume_up(self):
 		if self.__status == True:
-			if self.__muted == False: 
-				if self.__volume != Controller.MAX_VOLUME:
-					self.__volume += 1
-					self.slider_volume.setValue(self.__volume)
-				else:
-					self.__volume = Controller.MAX_VOLUME
-					self.slider_volume.setValue(self.__volume)
+			if self.__volume != Controller.MAX_VOLUME:
+				self.__volume += 1
+				self.slider_volume.setValue(self.__volume)
+				self.btn_mute.setStyleSheet("background-color: none")
+			else:
+				self.__volume = Controller.MAX_VOLUME
+				self.slider_volume.setValue(self.__volume)
+				self.btn_mute.setStyleSheet("background-color: none")
 
 		
 	def volume_down(self):
 		if self.__status == True:
-			if self.__muted == False: 
-				if self.__volume != Controller.MIN_VOLUME:
-					self.__volume -= 1
-					self.slider_volume.setValue(self.__volume)
-				else:
-					self.__volume = Controller.MIN_VOLUME
-					self.slider_volume.setValue(self.__volume)
+			if self.__volume != Controller.MIN_VOLUME:
+				self.__volume -= 1
+				self.slider_volume.setValue(self.__volume)
+				self.btn_mute.setStyleSheet("background-color: none")
+			else:
+				self.__volume = Controller.MIN_VOLUME
+				self.btn_mute.setStyleSheet("background-color: red")
+				self.slider_volume.setValue(self.__volume)
 
 
 	def channel_up(self):
