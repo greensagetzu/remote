@@ -15,12 +15,11 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 	def __init__(self, *args, **kwargs):
 		"""
-		Constructor to create initial state of a controller project
+		Constructor to create initial state of acontroller project
 
-		:param name: person's name
-		
 		"""
-		""""""
+
+	
 		super().__init__(*args, **kwargs)
 		self.setupUi(self)
 		
@@ -54,6 +53,11 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
 	def power(self):
+		"""
+
+		Function to turn on and turn off TV
+		
+		"""
 		try:
 			if self.__status == False:
 				self.__status = True
@@ -82,6 +86,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 	
 
 	def mute(self):
+		"""
+		Function to mute the volume
+
+		"""
 		try:
 			if self.__status == True:
 				if self.__muted == False: 
@@ -98,6 +106,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
 	def volume_up(self):
+		"""
+		Function to turn up the volume
+
+		"""
 		try:
 			if self.__status == True:
 				if self.__volume != Controller.MAX_VOLUME:
@@ -114,6 +126,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 		
 	def volume_down(self):
+		"""
+		Function to turn down the volume
+
+		"""
 		try:
 			if self.__status == True:
 				if self.__volume != Controller.MIN_VOLUME:
@@ -129,6 +145,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
 	def channel_up(self):
+		"""
+		Function to increase the channel
+
+		"""
 		try:
 			if self.__status == True:
 				if self.__channel != Controller.MAX_CHANNEL:
@@ -150,6 +170,10 @@ class Controller(QMainWindow, Ui_MainWindow):
 
 
 	def channel_down(self):
+		"""
+		Function to decrease the channel
+
+		"""
 		try:
 			if self.__status == True:
 				if self.__channel != Controller.MIN_CHANNEL:
